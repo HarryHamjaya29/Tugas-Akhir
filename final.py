@@ -16,7 +16,7 @@ log.basicConfig(filename='webcam.log',level=log.INFO)
 
 video_capture = cv2.VideoCapture(0)
 anterior = 0
-count = 0
+#count = 0
 
 weight_model = 'weight_predictor_embedding.model'
 height_model = 'height_predictor_embedding.model'
@@ -27,8 +27,9 @@ weight_model = joblib.load(weight_model)
 bmi_model = joblib.load(bmi_model)
 
 def get_face_encoding(image_path):
-    print(image_path)
-    picture_of_me = face_recognition.load_image_file(image_path)
+    #print(image_path)
+    #picture_of_me = face_recognition.load_image_file(image_path)
+    picture_of_me = image_path
     my_face_encoding = face_recognition.face_encodings(picture_of_me)
     if not my_face_encoding:
         print("no face found !!!")
@@ -85,13 +86,10 @@ while True:
     # Line thickness of 2 px 
     thickness = 2
 
-    path = '../Test Images/img_4183.bmp'
+    #path = '../Test Images/img_4183.bmp'
 
-    if count%3==0:
-        height_value, weight_value, bmi_value = predict_height_width_BMI(path,height_model,weight_model,bmi_model)
+    height_value, weight_value, bmi_value = predict_height_width_BMI(frame,height_model,weight_model,bmi_model)
     
-    count = count+1
-
     # Using cv2.putText() method 
     frame = cv2.putText(frame, "Height = " + str(height_value), height_org, font,  fontScale, color, thickness, cv2.LINE_AA)
     frame = cv2.putText(frame, "Weight = " + str(weight_value), weight_org, font,  fontScale, color, thickness, cv2.LINE_AA)
