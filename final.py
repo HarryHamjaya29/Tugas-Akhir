@@ -10,6 +10,9 @@ import os
 import numpy as np
 import face_recognition
 
+import warnings
+warnings.filterwarnings("ignore")
+
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 log.basicConfig(filename='webcam.log',level=log.INFO)
@@ -85,8 +88,6 @@ while True:
     
     # Line thickness of 2 px 
     thickness = 2
-
-    #path = '../Test Images/img_4183.bmp'
 
     height_value, weight_value, bmi_value = predict_height_width_BMI(frame,height_model,weight_model,bmi_model)
     
