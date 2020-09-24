@@ -27,8 +27,8 @@ checked = 0
 # weight_model = 'weight_predictor_embedding.model'
 weight_model = 'weight_predictor_weight_best.model'
 # height_model = 'height_predictor_embedding.model'
-height_model = 'height_predictor_height_best.model'
-# height_model = 'new_height_predictor_height_best.model'
+# height_model = 'height_predictor_height_best.model'
+height_model = 'new_height_predictor_height_best.model'
 # bmi_model = 'bmi_predictor_embedding.model'
 bmi_model = 'bmi_predictor_bmi_best.model'
 
@@ -99,14 +99,14 @@ def predict_height_width_BMI(test_image,height_model,weight_model,bmi_model):
     length,width = get_face_encoding_last(test_image)
     temp_height = [[0, length]]
     height = math.exp(height_model.predict(temp_height))
-    height = round(height/15+150, 2)
+    # height = round(height/15+150, 2)
     temp_width = [[0, height]]
     weight = math.exp(weight_model.predict(temp_width))
     weight = round(weight, 2)
     temp_bmi = [[height,weight]]
     bmi = math.exp(bmi_model.predict(temp_bmi))
     bmi = round(bmi, 2)
-    return height, weight, bmi
+    return height, weight, bmi, length, width
 
 while True:
     if not video_capture.isOpened():
@@ -155,7 +155,7 @@ while True:
     thickness = 1
     
     if checked%31==0:
-        height_value, weight_value, bmi_value = predict_height_width_BMI(frame,height_model,weight_model,bmi_model)
+        height_value, weight_value, bmi_value, length, width = predict_height_width_BMI(frame,height_model,weight_model,bmi_model)
 
     
     checked+=1
