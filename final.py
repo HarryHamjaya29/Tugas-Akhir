@@ -99,7 +99,6 @@ def predict_height_width_BMI(test_image,height_model,weight_model,bmi_model):
     length,width = get_face_encoding_last(test_image)
     temp_height = [[0, length]]
     height = math.exp(height_model.predict(temp_height))
-    # height = round(height/15+150, 2)
     temp_width = [[0, height]]
     weight = math.exp(weight_model.predict(temp_width))
     weight = round(weight, 2)
